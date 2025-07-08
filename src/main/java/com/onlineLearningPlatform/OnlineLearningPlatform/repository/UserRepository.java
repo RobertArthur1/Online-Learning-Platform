@@ -1,13 +1,12 @@
 package com.onlineLearningPlatform.OnlineLearningPlatform.repository;
 
 import com.onlineLearningPlatform.OnlineLearningPlatform.Entity.User;
-import jdk.jfr.Registered;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-@Registered
+
 public interface UserRepository extends JpaRepository<User, Long> {
     //Find user by username
     Optional<User> findByUsername(String username);
