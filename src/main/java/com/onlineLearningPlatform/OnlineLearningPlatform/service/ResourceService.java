@@ -11,8 +11,11 @@ import java.util.Optional;
 @Service
 public class ResourceService {
 
+    private final ResourceRepository resourceRepository;
 
-    private ResourceRepository resourceRepository;
+    public ResourceService(ResourceRepository resourceRepository) {
+        this.resourceRepository = resourceRepository;
+    }
 
     public Resource saveResource(Resource resource) {
         resource.setCreatedAt(LocalDateTime.now());
@@ -20,15 +23,11 @@ public class ResourceService {
     }
 
     public Optional<Resource> findResourceById(Long resourceId) {
-        return resourceRepository.findByResourceId(resourceId);
+        return resourceRepository.findById(resourceId);
     }
 
     public List<Resource> findResourcesByCourseId(Long courseId) {
         return resourceRepository.findByCourse_CourseId(courseId);
-    }
-
-    public List<Resource> findResourcesByCourse(Long courseId) {
-        return resourceRepository.findByCourse(courseId);
     }
 
     public List<Resource> findResourcesByResourceType(String resourceType) {

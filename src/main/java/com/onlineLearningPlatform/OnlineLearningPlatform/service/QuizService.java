@@ -2,6 +2,7 @@ package com.onlineLearningPlatform.OnlineLearningPlatform.service;
 
 import com.onlineLearningPlatform.OnlineLearningPlatform.Entity.Quiz;
 import com.onlineLearningPlatform.OnlineLearningPlatform.repository.QuizRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ import java.util.Optional;
 @Service
 public class QuizService {
 
-
+    @Autowired
     private QuizRepository quizRepository;
 
     public Quiz saveQuiz(Quiz quiz) {
@@ -33,10 +34,6 @@ public class QuizService {
 
     public List<Quiz> findQuizzesByQuizName(String quizName) {
         return quizRepository.findByQuizNameContainingIgnoreCase(quizName);
-    }
-
-    public List<Quiz> findQuizzesByCourse(Long courseId) {
-        return quizRepository.findByCourse(courseId);
     }
 
     public Optional<Quiz> findQuizByIdAndCourseId(Long quizId, Long courseId) {

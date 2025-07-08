@@ -11,11 +11,14 @@ import java.util.Optional;
 @Service
 public class QuestionService {
 
+    private final QuestionRepository questionRepository;
 
-    private QuestionRepository questionRepository;
+    public QuestionService(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
+    }
 
     public Question saveQuestion(Question question) {
-        question.setLocalDateTime(LocalDateTime.now().toString());
+        question.setCreatedAt(LocalDateTime.now());
         return questionRepository.save(question);
     }
 
@@ -27,20 +30,12 @@ public class QuestionService {
         return questionRepository.findByQuiz_QuizId(quizId);
     }
 
-    public List<Question> findQuestionsByQuiz(Long quizId) {
-        return questionRepository.findByQuiz(quizId);
-    }
-
     public List<Question> findQuestionsByCorrectOption(String correctOption) {
         return questionRepository.findByCorrectOption(correctOption);
     }
 
-    public Optional<Question> findQuestionByIdAndQuizId(Long questionId, Long quizId) {
-        return questionRepository.findByQuestionIdAndQuiz_QuizId(questionId, quizId);
-    }
-
-    public Optional<Question> findByQuizIdAndQuestionId(Long quizId, Long questionId) {
-        return questionRepository.findByQuizIdAndQuestionId(quizId, questionId);
+    public Optional<Question> findQuestionByQuizIdAndQuestionId(Long quizId, Long questionId) {
+        return questionRepository.findByQuiz_QuizIdAndQuestionId(quizId, questionId);
     }
 
     public Question updateQuestion(Long questionId, Question updatedQuestion) {

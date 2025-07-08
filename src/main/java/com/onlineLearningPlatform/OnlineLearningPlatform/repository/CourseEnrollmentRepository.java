@@ -10,15 +10,9 @@ import java.util.Optional;
 @Repository
 public interface CourseEnrollmentRepository extends JpaRepository<CourseEnrollment, Long> {
 
-    // find all user enrollment by user id
-    List<CourseEnrollment> findByUserId(Long userId);
+    List<CourseEnrollment> findByUser_UserId(Long userId);
 
-    // find all enrollments for a specific course
     List<CourseEnrollment> findByCourse_CourseId(Long courseId);
 
-    // Check if a specific user is enrolled in a specific course
     Optional<CourseEnrollment> findByUser_UserIdAndCourse_CourseId(Long userId, Long courseId);
-
-    // find enrollment by user and course
-    List<CourseEnrollment> findByUserAndCourse(Long userId, Long courseId);
 }

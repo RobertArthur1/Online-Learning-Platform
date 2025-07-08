@@ -18,13 +18,11 @@ public class CourseEnrollmentService {
         this.enrollmentRepository = enrollmentRepository;
     }
 
-    // Create
     public CourseEnrollment saveCourseEnrollment(CourseEnrollment courseEnrollment) {
         courseEnrollment.setCreatedAt(LocalDateTime.now());
         return enrollmentRepository.save(courseEnrollment);
     }
 
-    // Read
     public Optional<CourseEnrollment> findCourseEnrollmentById(Long enrollmentId) {
         return enrollmentRepository.findById(enrollmentId);
     }
@@ -34,7 +32,7 @@ public class CourseEnrollmentService {
     }
 
     public List<CourseEnrollment> findEnrollmentsByUserId(Long userId) {
-        return enrollmentRepository.findByUserId(userId);
+        return enrollmentRepository.findByUser_UserId(userId);
     }
 
     public List<CourseEnrollment> findEnrollmentsByCourseId(Long courseId) {
@@ -45,7 +43,6 @@ public class CourseEnrollmentService {
         return enrollmentRepository.findByUser_UserIdAndCourse_CourseId(userId, courseId);
     }
 
-    // Update
     @Transactional
     public CourseEnrollment updateCourseEnrollment(Long enrollmentId, CourseEnrollment updatedEnrollment) {
         return enrollmentRepository.findById(enrollmentId)
@@ -57,7 +54,6 @@ public class CourseEnrollmentService {
                 .orElse(null);
     }
 
-    // Delete
     @Transactional
     public void deleteCourseEnrollment(Long enrollmentId) {
         enrollmentRepository.deleteById(enrollmentId);

@@ -2,6 +2,7 @@ package com.onlineLearningPlatform.OnlineLearningPlatform.service;
 
 import com.onlineLearningPlatform.OnlineLearningPlatform.Entity.Course;
 import com.onlineLearningPlatform.OnlineLearningPlatform.repository.CourseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -11,7 +12,7 @@ import java.util.Optional;
 @Service
 public class CourseService {
 
-
+    @Autowired
     private CourseRepository courseRepository;
 
     public Course saveCourse(Course course) {
@@ -21,11 +22,11 @@ public class CourseService {
     }
 
     public Optional<Course> findCourseById(Long courseId) {
-        return courseRepository.findByCourseId(courseId);
+        return courseRepository.findById(courseId);
     }
 
     public List<Course> findCoursesByInstructorId(Long instructorId) {
-        return courseRepository.findByInstructorUserId(instructorId);
+        return courseRepository.findByInstructor_UserId(instructorId);
     }
 
     public List<Course> findCoursesByCourseName(String courseName) {
@@ -33,7 +34,7 @@ public class CourseService {
     }
 
     public List<Course> findCoursesByUserEnrollment(Long userId) {
-        return courseRepository.findByEnrollments_User_UserAndCourseId(userId);
+        return courseRepository.findByEnrollments_User_UserId(userId);
     }
 
     public Course updateCourse(Long courseId, Course updatedCourse) {

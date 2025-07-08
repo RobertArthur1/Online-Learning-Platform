@@ -34,7 +34,7 @@ public class Question {
     private String correctOption;
 
     @Column(nullable = false, updatable = false)
-    private String LocalDateTime;
+    private LocalDateTime createdAt;
 
     public Long getQuestionId() {
         return questionId;
@@ -100,11 +100,11 @@ public class Question {
         this.correctOption = correctOption;
     }
 
-    public String getLocalDateTime() {
-        return LocalDateTime;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setLocalDateTime(String localDateTime) {
-        LocalDateTime = localDateTime;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

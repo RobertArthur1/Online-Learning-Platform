@@ -1,12 +1,9 @@
 package com.onlineLearningPlatform.OnlineLearningPlatform.Entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
 @Entity
 @Table(name = "users")
 public class User {
@@ -41,45 +38,83 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<UserGrade> grades;
 
+    public Long getUserId() {
+        return userId;
+    }
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+    public String getRole() {
+        return role;
+    }
+
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
+    public List<Course> getCourses() {
+        return courses;
+    }
+
     public void setCourses(List<Course> courses) {
         this.courses = courses;
+    }
+
+    public List<CourseEnrollment> getEnrollments() {
+        return enrollments;
     }
 
     public void setEnrollments(List<CourseEnrollment> enrollments) {
         this.enrollments = enrollments;
     }
 
+    public List<UserAnswer> getAnswers() {
+        return answers;
+    }
+
     public void setAnswers(List<UserAnswer> answers) {
         this.answers = answers;
+    }
+
+    public List<UserGrade> getGrades() {
+        return grades;
     }
 
     public void setGrades(List<UserGrade> grades) {
         this.grades = grades;
     }
 }
-
