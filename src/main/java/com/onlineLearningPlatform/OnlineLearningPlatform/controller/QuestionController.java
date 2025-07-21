@@ -1,11 +1,15 @@
 package com.onlineLearningPlatform.OnlineLearningPlatform.controller;
 
 import com.onlineLearningPlatform.OnlineLearningPlatform.Entity.Question;
+import com.onlineLearningPlatform.OnlineLearningPlatform.Entity.Quiz;
+import com.onlineLearningPlatform.OnlineLearningPlatform.dto.QuestionDTO;
+import com.onlineLearningPlatform.OnlineLearningPlatform.repository.QuizRepository;
 import com.onlineLearningPlatform.OnlineLearningPlatform.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +20,26 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
+    @Autowired
+    private QuizRepository quizRepository;
+
     @PostMapping
-    public ResponseEntity<Question> createQuestion(@RequestBody Question question) {
+    public ResponseEntity<?> createQuestion(@RequestBody QuestionDTO dto) {
+        Optional<Quiz> quizOpt = quizRepository.findById(dto.getQuizId());
+        if (quizOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Quiz not found with ID: " + dto.getQuizId());
+        }
+
+        Question question = new Question();
+        question.setQuiz(quizOpt.get());
+        question.setQuestionText(dto.getQuestionText());
+        question.setOptionA(dto.getOptionA());
+        question.setOptionB(dto.getOptionB());
+        question.setOptionC(dto.getOptionC());
+        question.setOptionD(dto.getOptionD());
+        question.setCorrectOption(dto.getCorrectOption());
+        question.setCreatedAt(LocalDateTime.now());
+
         return ResponseEntity.ok(questionService.saveQuestion(question));
     }
 

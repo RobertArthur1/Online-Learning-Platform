@@ -5,35 +5,35 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name= "questions")
+@Table(name = "questions")
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
 
     @ManyToOne
-    @JoinColumn(name= "quiz_id", nullable = false)
+    @JoinColumn(name = "quiz_id", nullable = false)
     private Quiz quiz;
 
     @Column(nullable = false)
     private String questionText;
 
-    @Column(nullable = false)
+    @Column(name = "optiona", nullable = false)
     private String optionA;
 
-    @Column(nullable = false)
+    @Column(name = "optionb", nullable = false)
     private String optionB;
 
-    @Column(nullable = false)
+    @Column(name = "optionc", nullable = false)
     private String optionC;
 
-    @Column(nullable = false)
+    @Column(name = "optiond", nullable = false)
     private String optionD;
 
-    @Column(nullable = false)
+    @Column(name = "correct_option", nullable = false)
     private String correctOption;
 
-    @Column(nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     public Long getQuestionId() {

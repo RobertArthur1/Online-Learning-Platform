@@ -1,7 +1,10 @@
 package com.onlineLearningPlatform.OnlineLearningPlatform.service;
 
 import com.onlineLearningPlatform.OnlineLearningPlatform.Entity.Question;
+import com.onlineLearningPlatform.OnlineLearningPlatform.Entity.Quiz;
+import com.onlineLearningPlatform.OnlineLearningPlatform.dto.QuestionDTO;
 import com.onlineLearningPlatform.OnlineLearningPlatform.repository.QuestionRepository;
+import com.onlineLearningPlatform.OnlineLearningPlatform.repository.QuizRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -12,13 +15,32 @@ import java.util.Optional;
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
+    private final QuizRepository quizRepository;
 
-    public QuestionService(QuestionRepository questionRepository) {
+    public QuestionService(QuestionRepository questionRepository, QuizRepository quizRepository) {
         this.questionRepository = questionRepository;
+        this.quizRepository = quizRepository;
     }
 
     public Question saveQuestion(Question question) {
         question.setCreatedAt(LocalDateTime.now());
+        return questionRepository.save(question);
+    }
+
+    public Question createQuestionFromDTO(QuestionDTO questionDTO) {
+        Quiz quiz = quizRepository.findById(questionDTO.getQuizId())
+                .orElseThrow(() -> new RuntimeException("Quiz not found with id: " + questionDTO.getQuizId()));
+
+        Question question = new Question();
+        question.setQuiz(quiz);
+        question.setQuestionText(questionDTO.getQuestionText());
+        question.setOptionA(questionDTO.getOptionA());
+        question.setOptionB(questionDTO.getOptionB());
+        question.setOptionC(questionDTO.getOptionC());
+        question.setOptionD(questionDTO.getOptionD());
+        question.setCorrectOption(questionDTO.getCorrectOption());
+        question.setCreatedAt(LocalDateTime.now());
+
         return questionRepository.save(question);
     }
 
